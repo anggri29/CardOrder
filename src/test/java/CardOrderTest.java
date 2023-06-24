@@ -1,34 +1,36 @@
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
+import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.open;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CardOrderTest {
 
-    private WebDriverManager driver;
-
-    @BeforeAll
-    static void setUpAll() {
-        WebDriverManager.chromedriver().setup();
-    }
-
     @BeforeEach
     void setUp() {
-        driver = new ChromeDriver();
-
-    }
-
-    @AfterEach
-    void tearDown() {
-        driver.quit();
-        driver = null;
+        Configuration.headless = true;
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--headless");
+        ChromeDriver driver = new ChromeDriver(options);
+        driver.get("http://localhost:9999/");
+        open("http://localhost:9999/");
     }
 
     @Test
-    void shouldTest() {
-        throw new UnsupportedOperationException();
+    public void shouldTest() throws InterruptedException {
+        $("[data-test-id=name] input").sendKeys("Григорян Ангелина");
+        $("[data-test-id=phone] input").sendKeys("+79250881558");
+        $("[data-test-id=agreement]").click();
+        $("button").click();
+        String expected = "Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.";
+        String actual = $("[data-test-id=order-success]").getText().trim();
+        assertEquals(expected, actual);
+        Thread.sleep(5000);
     }
 }
