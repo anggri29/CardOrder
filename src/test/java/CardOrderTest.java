@@ -28,7 +28,7 @@ public class CardOrderTest {
         $("[data-test-id=phone] input").sendKeys("+79250881558");
         $("[data-test-id=agreement]").click();
         $("button").click();
-        String expected = "Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.";
+        String expected = "Ваша заявка успешно отправлена!  свяжется с вами в ближайшее время.";
         String actual = $("[data-test-id=order-success]").getText().trim();
         assertEquals(expected, actual);
         Thread.sleep(5000);
