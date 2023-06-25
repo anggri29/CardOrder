@@ -18,7 +18,6 @@ public class CardOrderTest {
         options.addArguments("--no-sandbox");
         options.addArguments("--headless");
         ChromeDriver driver = new ChromeDriver(options);
-        driver.get("http://localhost:9999/");
         open("http://localhost:9999/");
     }
 
