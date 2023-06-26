@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.open;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CardOrderTest {
 
@@ -20,6 +19,5 @@ public class CardOrderTest {
         $("[data-test-id=agreement]").click();
         $("button").click();
         $("[data-test-id=order-success]").shouldHave(Condition.text("Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время."));
-
     }
 }
