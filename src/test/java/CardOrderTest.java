@@ -1,3 +1,4 @@
+import com.codeborne.selenide.Condition;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,8 +19,7 @@ public class CardOrderTest {
         $("[data-test-id=phone] input").sendKeys("+79250881558");
         $("[data-test-id=agreement]").click();
         $("button").click();
-        String expected = "Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.";
-        String actual = $("[data-test-id=order-success]").getText().trim();
-        assertEquals(expected, actual);
+        $("[data-test-id=order-success]").shouldHave(Condition.text("Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время."));
+
     }
 }
